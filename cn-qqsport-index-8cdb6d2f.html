@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>腾讯体育 · 赛事信息索引</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f5f9fc;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #1a2b34;
+      padding: 0 20px 40px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* hero / 横幅 */
+    .hero {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 60%, #1baaa6 100%);
+      color: #fff;
+      padding: 48px 24px 40px;
+      margin: 24px 0 36px;
+      border-radius: 28px;
+      box-shadow: 0 12px 24px rgba(13, 115, 119, 0.18);
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      word-break: break-word;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      opacity: 0.88;
+      max-width: 580px;
+      margin: 0 auto;
+      font-weight: 350;
+      line-height: 1.5;
+    }
+
+    .hero .sub a {
+      color: #cbf0ee;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+    }
+
+    .hero .sub a:hover {
+      color: #ffffff;
+    }
+
+    /* 背景说明 */
+    .background-note {
+      background: rgba(13, 115, 119, 0.05);
+      border-left: 6px solid #14919b;
+      padding: 18px 24px;
+      margin-bottom: 40px;
+      border-radius: 0 20px 20px 0;
+      font-size: 1rem;
+      color: #1f3a42;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 10px 18px;
+    }
+
+    .background-note .label {
+      font-weight: 500;
+      color: #0d7377;
+      white-space: nowrap;
+    }
+
+    .background-note p {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* 网格卡片区 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 4px 14px rgba(0, 40, 50, 0.04);
+      transition: all 0.2s ease;
+      border: 1px solid #e2edf1;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(13, 115, 119, 0.08);
+      border-color: #b4d9de;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: #0d5f63;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h3::before {
+      content: "◆";
+      font-size: 0.8rem;
+      color: #14919b;
+      opacity: 0.7;
+    }
+
+    .card p {
+      font-size: 0.98rem;
+      color: #2f434b;
+      margin-bottom: 8px;
+    }
+
+    .card .meta {
+      font-size: 0.85rem;
+      color: #67848f;
+      margin-top: 10px;
+      border-top: 1px dashed #d6e5ea;
+      padding-top: 12px;
+    }
+
+    /* 第三段：FAQ 摘要风格 */
+    .faq-strip {
+      background: #eef5f7;
+      border-radius: 28px;
+      padding: 28px 28px 32px;
+      margin-bottom: 44px;
+    }
+
+    .faq-strip h2 {
+      font-size: 1.45rem;
+      font-weight: 460;
+      color: #0d5f63;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .faq-strip h2 small {
+      font-size: 0.9rem;
+      font-weight: 350;
+      color: #3e6a73;
+    }
+
+    .faq-item {
+      margin-bottom: 14px;
+      padding-left: 6px;
+    }
+
+    .faq-item .q {
+      font-weight: 460;
+      color: #13474e;
+      margin-bottom: 2px;
+    }
+
+    .faq-item .q::before {
+      content: "▹ ";
+      color: #14919b;
+    }
+
+    .faq-item .a {
+      color: #2b4a54;
+      margin-left: 22px;
+      font-size: 0.96rem;
+    }
+
+    .faq-item .a a {
+      color: #0d7377;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .faq-item .a a:hover {
+      color: #063b3f;
+    }
+
+    /* 页尾提示 */
+    .footer-tip {
+      text-align: center;
+      margin-top: 20px;
+      padding: 28px 16px 12px;
+      border-top: 1px solid #d2e3e8;
+      color: #44626b;
+      font-size: 0.95rem;
+    }
+
+    .footer-tip .mention {
+      background: #dcecef;
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 60px;
+      color: #0d5f63;
+      font-weight: 460;
+      margin-bottom: 12px;
+    }
+
+    .footer-tip p {
+      max-width: 560px;
+      margin: 0 auto 6px;
+    }
+
+    .footer-tip .tiny {
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .hero .sub {
+        font-size: 1rem;
+      }
+      .card {
+        padding: 20px 16px;
+      }
+      .faq-strip {
+        padding: 20px 16px;
+      }
+      .background-note {
+        padding: 14px 16px;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0 12px 32px;
+      }
+      .hero {
+        padding: 32px 16px;
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- hero 横幅 -->
+  <header class="hero">
+    <h1>赛事资料 · 信息索引</h1>
+    <div class="sub">
+      <a href="https://cn-qqsport.com">腾讯体育</a> 作为综合性赛事资讯平台，聚合了大量联赛、杯赛及运动项目的实时数据与背景资料。从赛程预告到历史交锋，这里提供了可检索的信息脉络。
+    </div>
+  </header>
+
+  <!-- 背景说明 -->
+  <div class="background-note">
+    <span class="label">📋 索引背景</span>
+    <p>本页围绕 <a href="https://cn-qqsport.com" style="color: #0d7377;text-decoration: underline;">腾讯体育</a> 的公开信息结构，整理其内容分类与常见查询场景。所有资料均源自平台公开页面，不包含非公开数据或个性化推荐逻辑。</p>
+  </div>
+
+  <!-- 三段自然介绍：网格卡片 -->
+  <section class="grid-cards">
+    <div class="card">
+      <h3>赛事档案整理</h3>
+      <p>涵盖中超、CBA、NBA、欧冠等主流联赛的赛季数据、积分榜、射手榜及历史夺冠记录。每个赛季均按时间线归档，便于横向对比与趋势观察。</p>
+      <div class="meta">更新频次：每日同步官方赛果</div>
+    </div>
+    <div class="card">
+      <h3>球员与队伍信息</h3>
+      <p>球员生涯数据、转会记录、国家队出场信息等均以结构化卡片呈现。队伍页面包含阵容名单、战术统计及近期交锋记录，适合深度资料查阅。</p>
+      <div class="meta">覆盖项目：篮球 · 足球 · 网球 · 电竞</div>
+    </div>
+    <div class="card">
+      <h3>专题与深度聚合</h3>
+      <p>针对重大赛事（全运会、亚运会、世锦赛等）推出专题页面，集合赛程、奖牌榜、赛事新闻及历史回顾。信息层级以「赛事—阶段—项目」逐层展开。</p>
+      <div class="meta">专题数量：年均 30+ 赛事专题</div>
+    </div>
+  </section>
+
+  <!-- FAQ 摘要风格 第三段自然介绍 -->
+  <div class="faq-strip">
+    <h2>常见查询场景 <small>· 信息索引摘要</small></h2>
+    <div class="faq-item">
+      <div class="q">如何快速查找某轮联赛的完整赛果？</div>
+      <div class="a">在 <a href="https://cn-qqsport.com">腾讯体育</a> 的「赛程」板块选择对应联赛与轮次，页面会列出所有已结束比赛的比分、进球/得分详情及技术统计。支持按日期或队伍筛选。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">能否获取某支球队近五场的攻防数据？</div>
+      <div class="a">队伍页面内嵌「近期表现」模块，展示最近五场比赛的得分/失分、投篮命中率、失误等核心指标，并附带对手强度标签。数据更新延迟不超过 30 分钟。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">历史交锋记录是否包含跨赛季数据？</div>
+      <div class="a">是的，在「交锋记录」子页面中，可查询两队自 2010 年以来的所有正式比赛相遇情况，包含主客场、比分、赛事类型及当值裁判信息。</div>
+    </div>
+  </div>
+
+  <!-- 页尾访问提示 -->
+  <footer class="footer-tip">
+    <div class="mention">资料索引 · 持续更新</div>
+    <p>以上内容基于 <a href="https://cn-qqsport.com" style="color:#0d7377;text-decoration: underline;">腾讯体育</a> 公开页面整理，旨在为信息检索提供结构化参考。如需查阅原始赛事数据、视频回放或深度专栏，可直接访问平台对应栏目。</p>
+    <p class="tiny">索引信息仅供参考，具体以官方实时页面为准。页面风格模拟杂志专题式布局。</p>
+  </footer>
+</div>
+</body>
+</html>
